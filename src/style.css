@@ -1,0 +1,172 @@
+/* ---------- reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- base ---------- */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #000;
+  color: #e5e5e5;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ---------- two-column layout ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 16px;
+  padding: 16px;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+/* ---------- right panel ---------- */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.task {
+  border: 1px solid #1f1f1f;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #0a0a0a;
+}
+
+.task legend {
+  padding: 0 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e5e5e5;
+}
+
+.task label {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #a3a3a3;
+}
+
+.task label.check {
+  grid-template-columns: auto 1fr;
+  cursor: pointer;
+}
+
+.task input[type="color"] {
+  width: 32px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+}
+
+.task input[type="range"] {
+  width: 100%;
+  accent-color: #4ade80;
+}
+
+.task output {
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: #6b7280;
+  min-width: 2ch;
+  text-align: right;
+}
+
+/* ---------- stage: canvas fills viewport, status bar below ---------- */
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.viewport {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.viewport canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #0a0a0a;
+  border: 1px solid #1f1f1f;
+  min-height: 0;
+  min-width: 0;
+}
+
+.viewport video {
+  display: none;
+}
+
+/* ---------- status bar ---------- */
+.statusbar {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #0a0a0a;
+  border: 1px solid #1f1f1f;
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.sb-item {
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.sb-label {
+  color: #4b5563;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.65rem;
+}
+
+.sb-item > span:last-child {
+  color: #e5e5e5;
+  min-width: 5ch;
+  text-align: right;
+}
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    height: auto;
+  }
+  .panel {
+    max-height: 40vh;
+  }
+}
