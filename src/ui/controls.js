@@ -1,5 +1,5 @@
 import { feedEls, pose, hand } from "./elements.js";
-import { feed } from "../render/video_feed.js";
+import { feed, resetFeed } from "../render/video_feed.js";
 import { styles, LABEL_STYLE } from "../render/styles.js";
 
 function hexWithAlpha(hex6, alpha = "88") {
@@ -42,27 +42,36 @@ function wireTask(taskStyles, els) {
   els.indices.checked = Boolean(taskStyles.indices);
 }
 
+const feedSetters = {
+  brightness(v) { feed.brightness = v; feedEls.brightness.value = v; feedEls.brightnessOut.textContent = v.toFixed(2); },
+  contrast(v)   { feed.contrast = v;   feedEls.contrast.value = v;   feedEls.contrastOut.textContent = v.toFixed(2); },
+  saturation(v) { feed.saturation = v; feedEls.saturation.value = v; feedEls.saturationOut.textContent = v.toFixed(2); },
+  hue(v)        { feed.hue = v;        feedEls.hue.value = v;        feedEls.hueOut.textContent = `${v}°`; },
+  blur(v)       { feed.blur = v;       feedEls.blur.value = v;       feedEls.blurOut.textContent = `${v}px`; },
+  flipH(v)      { feed.flipH = v;      feedEls.flipH.checked = v; },
+  flipV(v)      { feed.flipV = v;      feedEls.flipV.checked = v; },
+};
+
 function wireFeed() {
-  const range = (el, out, apply, fmt) => {
-    el.addEventListener("input", (e) => {
-      const v = parseFloat(e.target.value);
-      apply(v);
-      out.textContent = fmt(v);
+    for (const [key, set] of Object.entries(feedSetters)) {
+    const el = feedEls[key];
+    const isCheckbox = el.type === "checkbox";
+    el.addEventListener(isCheckbox ? "change" : "input", (e) => {
+      set(isCheckbox ? e.target.checked : parseFloat(e.target.value));
     });
-    apply(parseFloat(el.value));
-    out.textContent = fmt(parseFloat(el.value));
-  };
+  }
 
-  range(feedEls.brightness, feedEls.brightnessOut, (v) => (feed.brightness = v), (v) => v.toFixed(2));
-  range(feedEls.contrast, feedEls.contrastOut, (v) => (feed.contrast = v), (v) => v.toFixed(2));
-  range(feedEls.saturation, feedEls.saturationOut, (v) => (feed.saturation = v), (v) => v.toFixed(2));
-  range(feedEls.hue, feedEls.hueOut, (v) => (feed.hue = v), (v) => `${v}°`);
-  range(feedEls.blur, feedEls.blurOut, (v) => (feed.blur = v), (v) => `${v}px`);
+  // seed UI from current model state (in case defaults ever diverge from HTML)
+  for (const [key, set] of Object.entries(feedSetters)) {
+    set(feed[key]);
+  }
 
-  feedEls.flipH.addEventListener("change", (e) => (feed.flipH = e.target.checked));
-  feedEls.flipV.addEventListener("change", (e) => (feed.flipV = e.target.checked));
-  feedEls.flipH.checked = feed.flipH;
-  feedEls.flipV.checked = feed.flipV;
+  feedEls.reset.addEventListener("click", () => {
+    resetFeed();
+    for (const [key, set] of Object.entries(feedSetters)) {
+      set(FEED_DEFAULTS[key]);
+    }
+  });
 }
 
 export function initControls() {

@@ -94,6 +94,29 @@ body {
   text-align: right;
 }
 
+.reset-btn {
+  margin-top: 4px;
+  font: inherit;
+  font-size: 0.8rem;
+  color: #e5e5e5;
+  background: #171717;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.reset-btn:hover {
+  background: #1f1f1f;
+  border-color: #3a3a3a;
+}
+
+.reset-btn:active {
+  background: #262626;
+}
+
 /* ---------- stage: canvas fills viewport, status bar below ---------- */
 .stage {
   display: flex;

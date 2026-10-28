@@ -40,6 +40,7 @@ export const feedEls = {
   blurOut: document.getElementById("feed-blur-out"),
   flipH: document.getElementById("feed-flip-h"),
   flipV: document.getElementById("feed-flip-v"),
+  reset: document.getElementById("feed-reset")
 };
 
 export const status_bar = {
