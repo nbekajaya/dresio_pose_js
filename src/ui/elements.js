@@ -1,6 +1,13 @@
 export const video = document.getElementById("video");
-export const canvas = document.getElementById("canvas");
-export const ctx = canvas.getContext("2d");
+
+export const videoCanvas = document.getElementById("canvas");
+export const videoCtx = videoCanvas.getContext("2d");
+
+export const skeletonCanvas = document.getElementById("skeleton-canvas");
+export const skeletonCtx = skeletonCanvas.getContext("2d");
+
+export const stopBtn = document.getElementById("stop-btn");
+
 export const statusEl = document.getElementById("status");
 
 export const pose = {

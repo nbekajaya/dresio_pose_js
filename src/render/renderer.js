@@ -1,4 +1,4 @@
-import { drawAllSkeletons } from "./skeleton.js";
+import { drawAllSkeletons, drawAllSkeletons3d, drawSkeleton3d } from "./skeleton.js";
 import { drawAllIndices } from "./indices.js";
 import { feed, feedFilterString } from "./video_feed.js";
 
@@ -26,4 +26,11 @@ export function renderFrame(ctx, video, canvas, tasks) {
   }
 
   ctx.restore();
+}
+
+export function renderSkeletonView(ctx, canvas, results, connections, style, project) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const result of results) {
+    drawAllSkeletons3d(ctx, result, connections, style, project);
+  }
 }

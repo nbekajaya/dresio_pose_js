@@ -7,3 +7,10 @@ export async function startCamera(videoEl, { width = 1920, height = 1080 } = {})
   await videoEl.play();
   return stream;
 }
+
+export function stopCamera(videoEl) {
+  const stream = videoEl.srcObject;
+  if (!stream) return;
+  for (const track of stream.getTracks()) track.stop();
+  videoEl.srcObject = null;
+}

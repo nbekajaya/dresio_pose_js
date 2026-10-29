@@ -7,19 +7,25 @@
 </head>
 <body>
   <main class="layout">
-      <section class="stage">
+    <section class="stage">
     <div id="status">loading…</div>
-    <div class="viewport">
-      <video id="video" autoplay playsinline muted></video>
-      <canvas id="canvas"></canvas>
-    </div>
-    <footer class="statusbar" id="statusbar">
+    <header class="statusbar" id="statusbar">
       <span class="sb-item"><span class="sb-label">latency</span><span id="sb-latency">—</span></span>
       <span class="sb-item"><span class="sb-label">pose</span><span id="sb-pose-ms">—</span></span>
       <span class="sb-item"><span class="sb-label">hands</span><span id="sb-hand-ms">—</span></span>
       <span class="sb-item"><span class="sb-label">points</span><span id="sb-points">—</span></span>
       <span class="sb-item"><span class="sb-label">fps</span><span id="sb-fps">—</span></span>
-    </footer>
+      <button id="stop-btn" class="stop-btn">stop</button>
+    </header>
+    <div class="viewport">
+       <video id="video" autoplay playsinline muted></video>
+       <canvas id="canvas"></canvas>
+       <div class="skeleton-wrap">
+            <canvas id="skeleton-canvas" width="800" height="900"></canvas>
+        </div>
+      </div>
+    </div>
+    
   </section>
 
     <aside class="panel">
